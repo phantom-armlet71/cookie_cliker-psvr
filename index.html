@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Clicker VR</title>
+<style>
+  body { text-align: center; font-family: Arial, sans-serif; background-color: #f8f8f8; }
+  .cookie { font-size: 80px; cursor: pointer; }
+  .upgrade { margin: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Cookie Clicker VR</h1>
+<div id="cookies">Cookies: 0</div>
+<div id="cps">Cookies per second: 0</div>
+<div class="cookie" onclick="handleClick()">🍪</div>
+<div id="upgrades">
+  <div class="upgrade" onclick="buyUpgrade(0)">Buy Auto Clicker (10 cookies)</div>
+  <div class="upgrade" onclick="buyUpgrade(1)">Buy Grandma (50 cookies)</div>
+</div>
+
+<script>
+  let cookies = 0;
+  let cps = 0;
+  const upgrades = [
+    { name: 'Auto Clicker', cost: 10, cps: 1 },
+    { name: 'Grandma', cost: 50, cps: 5 }
+  ];
+
+  function updateDisplay() {
+    document.getElementById('cookies').innerText = `Cookies: ${cookies}`;
+    document.getElementById('cps').innerText = `Cookies per second: ${cps}`;
+  }
+
+  function handleClick() {
+    cookies++;
+    updateDisplay();
+  }
+
+  function buyUpgrade(index) {
+    const upgrade = upgrades[index];
+    if (cookies >= upgrade.cost) {
+      cookies -= upgrade.cost;
+      cps += upgrade.cps;
+      updateDisplay();
+    }
+  }
+
+  setInterval(() => {
+    cookies += cps;
+    updateDisplay();
+  }, 1000);
+</script>
+</body>
+</html>
